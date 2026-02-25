@@ -17,7 +17,7 @@ import { BadRequestError, type Stream, type StreamResponse } from "./types.js";
 
 export const manifest = {
 	id: "barestreams",
-	version: "1.0.0",
+	version: "1.0.1",
 	name: "barestreams",
 	description:
 		"Lightweight Stremio addon for torrent streams from multiple public sources.",
@@ -186,6 +186,7 @@ export const createAddonInterface = () => {
 
 	builder.defineStreamHandler(async ({ type, id }: StreamHandlerArgs) => {
 		const startedAt = process.hrtime.bigint();
+		id = decodeURIComponent(id);
 		if (type !== "movie" && type !== "series") {
 			throw new BadRequestError("Invalid type");
 		}
