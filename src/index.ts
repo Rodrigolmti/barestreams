@@ -2,12 +2,15 @@ import * as http from "node:http";
 import { createAddonInterface } from "./addon.js";
 import { initRedis } from "./cache/redis.js";
 import { config } from "./config.js";
+import { enableHttp2IfAvailable } from "./httpClient.js";
 import { ensureImdbDatasets } from "./imdb/index.js";
 import "./scrapers/registerFlareSolverrPools.js";
 import { initFlareSolverrSessions } from "./scrapers/http.js";
 import { BadRequestError } from "./types.js";
 
 const PORT = 80;
+
+enableHttp2IfAvailable();
 
 const sendJson = (
 	res: http.ServerResponse,
